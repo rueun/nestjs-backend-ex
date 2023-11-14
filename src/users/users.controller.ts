@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res, HttpCode, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res, HttpCode, BadRequestException, Header } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -19,14 +19,14 @@ export class UsersController {
     return res.status(200).json(users);
   }
 
-  // id가 0보다 작으면 BadRequestException을 발생시킨다.
+  /* // id가 0보다 작으면 BadRequestException을 발생시킨다.
   @Get(':id')
   findOne(@Param('id') id: string) {
     if(+id < 1) {
       throw new BadRequestException('id는 0보다 큰 값이어야 합니다.');
     }
     return this.usersService.findOne(+id);
-  }
+  } */
 
 
   // @HttpCode() 데코레이터는 HTTP 상태 코드를 설정한다. 성공적으로 요청이 처리되었을 때 202를 반환한다.
@@ -40,4 +40,12 @@ export class UsersController {
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
   }
+
+  // 응답 헤더를 설정한다.
+  @Header('Custom', 'Test Header')
+  @Get(':id')
+  findOneWithHeader(@Param('id') id: string) {
+    return this.usersService.findOne(+id);
+  }
+
 }
