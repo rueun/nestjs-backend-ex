@@ -9,7 +9,8 @@ export class UsersController {
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+    const { name, email } = createUserDto;
+    return `유저를 생성했습니다. 이름: ${name}, 이메일: ${email}`;
   }
 
   // @Res() 데코레이터는 응답 객체를 가져온다.
