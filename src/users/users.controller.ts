@@ -64,5 +64,18 @@ export class UsersController {
       return { url: 'https://docs.nestjs.com/v5/' };
     }
   }
+  
+  // 매개변수를 객체로 한 번에 받는다. (권장하지 않음)
+  @Delete(':userId/memo/:memoId')
+  deleteUserMemo(@Param() params: {[key: string]: string}) {
+    return `delete user ${params.userId}'s memo ${params.memoId}`;
+  }
+
+  // 매개변수를 개별적으로 받는다. (권장)
+/*   @Delete(':userId/memo/:memoId')
+  deleteUserMemo2(@Param('userId') userId: string, @Param('memoId') memoId: string) {
+    return `delete user ${userId}'s memo ${memoId}`;
+  } */
+
 
 }
