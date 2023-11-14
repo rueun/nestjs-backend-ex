@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res, HttpCode, BadRequestException, Header } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res, HttpCode, BadRequestException, Header, Redirect, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -42,10 +42,27 @@ export class UsersController {
   }
 
   // 응답 헤더를 설정한다.
-  @Header('Custom', 'Test Header')
+  /* @Header('Custom', 'Test Header')
   @Get(':id')
   findOneWithHeader(@Param('id') id: string) {
     return this.usersService.findOne(+id);
+  } */
+
+  // 리다이렉트를 설정한다.
+  @Redirect('https://nestjs.com', 301)
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.usersService.findOne(+id);
+  }
+
+  // version 쿼리 스트링이 5이면 v5 문서로 리다이렉트한다.
+  // 기본적으로 302 상태 코드를 반환한다.
+  @Get('redirect/docs')
+  @Redirect('https://nestjs.com', 302)
+  getDocs(@Query('version') version) {
+    if(version && version === '5') {
+      return { url: 'https://docs.nestjs.com/v5/' };
+    }
   }
 
 }
