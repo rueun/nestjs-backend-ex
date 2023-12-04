@@ -1,0 +1,17 @@
+{
+    "editor.tabSize": 2,
+    "editor.rulers": [
+        80
+    ],
+    "eslint.enable": true,
+    "eslint.validate": [
+        "typescript"
+    ],
+    "[typescript]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": true,
+            "source.organizeImports": true
+        }
+    }
+}
